@@ -27,7 +27,6 @@ int main(int argc, char *argv[]) {
     string digits;
     cout << "Please input 9 digits to be randomly shuffled:" << endl;
     cin >> digits;
-
     //check if the string length is 9 and all digits
     bool ok = IsValidString(digits);
 
@@ -44,31 +43,31 @@ int main(int argc, char *argv[]) {
 
             //header based on iteration of shuffle
             if(i == 0){
-                cout << "The first shuffled output is: " << endl;
+                cout << "The first shuffled output is:" << endl;
             }
             else if(i == 1){
-                cout << "The second shuffled output is: " << endl;
+                cout << "The second shuffled output is:" << endl;
             }
             else if(i == 2){
-                cout << "The third shuffled output is: " << endl;
+                cout << "The third shuffled output is:" << endl;
             }
             else if(i == 3){
-                cout << "The fourth shuffled output is: " << endl;
+                cout << "The fourth shuffled output is:" << endl;
             }
             else if(i == 4){
-                cout << "The fifth shuffled output is: " << endl;
+                cout << "The fifth shuffled output is:" << endl;
             }
             else if(i == 5){
-                cout << "The sixth shuffled output is: " << endl;
+                cout << "The sixth shuffled output is:" << endl;
             }
             else if(i == 6){
-                cout << "The seventh shuffled output is: " << endl;
+                cout << "The seventh shuffled output is:" << endl;
             }
             else if(i == 7){
-                cout << "The eighth shuffled output is: " << endl;
+                cout << "The eighth shuffled output is:" << endl;
             }
             else if(i == 8){
-                cout << "The ninth shuffled output is: " << endl;
+                cout << "The ninth shuffled output is:" << endl;
             }
             else if(i == 9){
                 cout << "The tenth shuffled output is: " << endl;
@@ -119,31 +118,3 @@ bool IsValidString(const string& s){
     }
     return true;
 }
-/**
- * Write a simple C++ program. Your program will take a string of 9 digits as console input,
- * randomly shuffle the digits, and print it out to console display in a 3x3 format.
-
-Requirements:
-The program takes 1 command line argument, which represents the total number of shuffles it
- will print out (Assume this number is <= 10). eg:
- > ./myhw 2
- > ./myhw 8
-The program takes the string of 9 digits through console input.
- It should prompt the user to type in the string of 9 digits. eg:
-> Please input 9 digits to be randomly shuffled:
-> 111222333
-There should be no space or any other characters between each digit.
-The program will randomly shuffles the 9 digits
-The output of the program should print the shuffled 9 digits in 3x3 format, eg:
- suppose the input command line argument was 2, and the user typed a string of 9 digits “987654321”,
- then the output should be:
-
- 	The first shuffled output is:
-
-	The second shuffled output is:
-
-
-You’re free to use your preferred IDE, but please make sure your program compiles and runs on CSS linux lab machine.
-
-
- */
