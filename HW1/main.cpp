@@ -6,12 +6,15 @@
 
 using std::cout;
 using std::cin;
-using std::endl;
 using std::string;
-using std::shuffle;
 using std::stringstream;
+using std::stoi;
+using std::endl;
+using std::shuffle;
 
-//declaration of sub-functions
+/**
+ * Declaration of sub-functions to use as helpers functions in main
+ */
 string Print(const string& s);
 bool IsValidString(const string& s);
 
@@ -22,6 +25,19 @@ bool IsValidString(const string& s);
  * @return 0
  */
 int main(int argc, char *argv[]) {
+    int totalShuffle;
+    if (argc > 1){
+        // check if the argument string is a digit and not null
+        for (int i = 0; argv[1][i] != '\0'; i++){
+            if (isdigit(argv[1][i])) {
+                //set total shuffle to the value if its a digit
+                totalShuffle = stoi(argv[1]);
+            }
+        }
+    } else{
+        totalShuffle = 1;
+    }
+
     // get user input for string of nine digits
     string digits;
     cout << "Please input 9 digits to be randomly shuffled:" << endl;
@@ -32,7 +48,7 @@ int main(int argc, char *argv[]) {
     const char* value[10] = { "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth","ninth", "tenth"};
 
     if(ok){// if string is valid
-        for(int i = 0; i < argc; i++){
+        for(int i = 0; i < totalShuffle; i++){
             // shuffle the string using shuffle method of algorithm
             shuffle(digits.begin(),digits.end(), std::mt19937(std::random_device()()));
 
