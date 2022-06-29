@@ -22,17 +22,18 @@ bool IsValidString(const string& s);
  * @return 0
  */
 int main(int argc, char *argv[]) {
-    int totalShuffle = argc;
-    // get user input for string
+    // get user input for string of nine digits
     string digits;
     cout << "Please input 9 digits to be randomly shuffled:" << endl;
     cin >> digits;
     //check if the string length is 9 and all digits
     bool ok = IsValidString(digits);
 
+    const char* value[10] = { "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth","ninth", "tenth"};
+
     if(ok){// if string is valid
-        for(int i = 0; i < totalShuffle; i++){
-            // shuffle the string
+        for(int i = 0; i < argc; i++){
+            // shuffle the string using shuffle method of algorithm
             shuffle(digits.begin(),digits.end(), std::mt19937(std::random_device()()));
 
             //break down the shuffled string into 3
@@ -42,36 +43,7 @@ int main(int argc, char *argv[]) {
             thirdLine = digits.substr(6,3);
 
             //header based on iteration of shuffle
-            if(i == 0){
-                cout << "The first shuffled output is:" << endl;
-            }
-            else if(i == 1){
-                cout << "The second shuffled output is:" << endl;
-            }
-            else if(i == 2){
-                cout << "The third shuffled output is:" << endl;
-            }
-            else if(i == 3){
-                cout << "The fourth shuffled output is:" << endl;
-            }
-            else if(i == 4){
-                cout << "The fifth shuffled output is:" << endl;
-            }
-            else if(i == 5){
-                cout << "The sixth shuffled output is:" << endl;
-            }
-            else if(i == 6){
-                cout << "The seventh shuffled output is:" << endl;
-            }
-            else if(i == 7){
-                cout << "The eighth shuffled output is:" << endl;
-            }
-            else if(i == 8){
-                cout << "The ninth shuffled output is:" << endl;
-            }
-            else if(i == 9){
-                cout << "The tenth shuffled output is: " << endl;
-            }
+            cout << "The " << value[i] << " shuffled output is:" << endl;
 
             //output shuffled string as 3x3
             cout << "+-------+ " << endl;
@@ -80,10 +52,9 @@ int main(int argc, char *argv[]) {
             cout << Print(thirdLine) << endl;
             cout << "+-------+ " << endl;
         }
-    }else{
+    }else{// if string contains other characters instead of numbers
         cout << "Invalid input" << endl;
     }
-
     return 0;
 }
 /**
