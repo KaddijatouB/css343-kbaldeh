@@ -60,7 +60,6 @@ int main(int argc, char *argv[]) {
 
             // header based on iteration of shuffle
             cout << "The " << value[i] << " shuffled output is:" << endl;
-
             // output shuffled string as 3x3
             cout << "+-------+ " << endl;
             cout << Print(firstLine) << endl;
