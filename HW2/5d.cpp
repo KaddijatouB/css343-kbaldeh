@@ -33,9 +33,8 @@ public:
             }
         }
         // return the validated left and right subtree if all conditions are met
-        bool okay = validateTree(root->right, root, maxValue) && validateTree(root->left, minValue, root);;
+        bool okay = validateTree(root->right, root, maxValue) && validateTree(root->left, minValue, root);
         return okay;
-
     }
     //function to validate
     bool isValidBST(TreeNode* root){
