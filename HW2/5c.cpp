@@ -14,13 +14,13 @@
  */
 class Solution {
 public:
-    int postind;
+    int idx;
     //sub function to serve as a helper method, it takes in two int that represent the staring index and the end
     TreeNode* BSTree(vector<int>& inorder,vector<int>& postorder,int start,int end){
         if(start > end){
             return nullptr;
         }
-        TreeNode* node = new TreeNode(postorder[postind--]);
+        TreeNode* node = new TreeNode(postorder[idx--]);
         int pos;
         for(int i = start; i <= end; i++){
             if(node->val == inorder[i]){
@@ -32,42 +32,7 @@ public:
         return node;
     }
     TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
-        postind = postorder.size()-1;
+        idx = postorder.size() - 1;
         return BSTree(inorder,postorder,0,inorder.size()-1);
     }
 };
-/**
-* class Solution {
-public:
-     TreeNode* helper(vector<int>& inorder, vector<int>& postorder,int InorderStart, int InorderEnd, int PostorderStart, int PostorderEnd)
-    {
-        if(InorderStart>InorderEnd)
-        {
-            return NULL;
-        }
-        TreeNode* root=new TreeNode(postorder[PostorderEnd]);
-        int index;
-        for(index=InorderStart;index<=InorderEnd;index++)
-        {
-            if(inorder[index]==postorder[PostorderEnd])
-                break;
-        }
-        int rootIndex=index;
-        int LeftPostOrderStart=PostorderStart;
-        int LeftInorderStart= InorderStart;
-        int LeftInorderEnd= rootIndex-1;
-        int LeftPostOrderEnd= LeftPostOrderStart+ LeftInorderEnd-LeftInorderStart;
-        root->left=helper(inorder,postorder,LeftInorderStart,LeftInorderEnd,LeftPostOrderStart,LeftPostOrderEnd);
-
-        int RightPostOrderStart=LeftPostOrderEnd+1;
-        int RightPostOrderEnd=PostorderEnd-1;
-        int RightInorderStart=rootIndex+1;
-        int RightInorderEnd= InorderEnd;
-        root->right=helper(inorder, postorder,RightInorderStart,RightInorderEnd,RightPostOrderStart,RightPostOrderEnd );
-        return root;
-    }
-    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
-        return helper(inorder,postorder,0,inorder.size()-1,0,postorder.size()-1);
-    }
-};
-*/
