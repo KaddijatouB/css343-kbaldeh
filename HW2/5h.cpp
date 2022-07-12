@@ -1,5 +1,5 @@
-//Implementation of the solution for leetcode problem
-//[Heap/priority queue]
+//Implementation of the solution for leetcode problem.
+//[Heap/priority queue].
 
 class Solution {
 public:

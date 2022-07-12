@@ -1,7 +1,7 @@
 //Implementation of the solution for leetcode problem 208.
-//Implement Trie (Prefix Tree)
+//Implement Trie (Prefix Tree).
 
-//create a node struct with array of 26 alphabets
+//create a struct node with array of 26 alphabets
 const int ALPHA_SIZE = 26;
 struct Node{
     Node* child[ALPHA_SIZE];

@@ -1,6 +1,6 @@
 // Implementation of the solution for leetcode problem 114.
-// Flatten Binary Tree to Linked List
-// Traverse vs. sub-problems
+// Flatten Binary Tree to Linked List.
+// Traverse vs. sub-problems.
 
 /**
 * Definition for a binary tree node.

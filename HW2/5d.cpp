@@ -1,6 +1,6 @@
-//   [BST operations]
-//  Implementation of the solution for leetcode problem 98.
-// Validate Binary Search Tree
+// Implementation of the solution for leetcode problem 98.
+// Validate Binary Search Tree.
+// [BST operations].
 
 /**
  * Definition for a binary tree node.

@@ -1,5 +1,5 @@
 // Implementation of the solution for leetcode problem 106.
-// Construct Binary Tree from Inorder and Postorder Traversal
+// Construct Binary Tree from Inorder and Postorder Traversal.
 
 /**
  * Definition for a binary tree node.
@@ -14,25 +14,41 @@
  */
 class Solution {
 public:
-    int idx;
-    //sub function to serve as a helper method, it takes in two int that represent the staring index and the end
-    TreeNode* BSTree(vector<int>& inorder,vector<int>& postorder,int start,int end){
-        if(start > end){
+    //index that hold the post oder
+    int postOderIdx;
+    //sub function to serve as a helper method
+    TreeNode* createBSTree(vector<int>& inorder,vector<int>& postorder,int start,int end){
+        // if the staring index is greater than the end, then return null
+        if(start > end ){
             return nullptr;
         }
-        TreeNode* node = new TreeNode(postorder[idx--]);
+        // The root of  the tree on post order list will pe at the last index
+        TreeNode* root= new TreeNode(postorder[postOderIdx--]);
+        //find the position of the root in the inorder list
         int pos;
-        for(int i = start; i <= end; i++){
-            if(node->val == inorder[i]){
-                pos = i;
+        for(int i=start;i<=end;i++){
+            if(root->val == inorder[i])
+            {
+                pos=i;
             }
         }
-        node->right = BSTree(inorder,postorder,pos+1,end);
-        node->left = BSTree(inorder,postorder,start,pos-1);
-        return node;
+        //recursively build a tree
+        root->right=createBSTree(inorder, postorder, pos + 1, end);
+        root->left=createBSTree(inorder, postorder, start, pos - 1);
+        //return the root
+        return root;
+
     }
+    // build tree method
     TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
-        idx = postorder.size() - 1;
-        return BSTree(inorder,postorder,0,inorder.size()-1);
+        //set post oder index to the last element of the list
+        postOderIdx = postorder.size() - 1;
+
+        //check size = zero (possible case for an empty tree), return null
+        if(inorder.size() == 0){
+            return nullptr;
+        }
+        //return built tree
+        return createBSTree(inorder,postorder, 0, inorder.size()-1);
     }
 };

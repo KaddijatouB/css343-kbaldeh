@@ -1,8 +1,8 @@
 //  Implementation of the solution for leetcode problem 450.
-//   Delete Node in a B
-//        -No child
-//        -Only 1 child
-//        -Two children  (inorder findMinimum/predecessor has no children or has 1 child)
+//   Delete Node in a BST:
+//        -No child.
+//        -Only 1 child.
+//        -Two children  (inorder findMinimum/predecessor has no children or has 1 child).
 
 /**
  * Definition for a binary tree node.

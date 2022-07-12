@@ -1,5 +1,5 @@
 // Implementation of the solution for leetcode problem 701.
-// Insert into a Binary Search Tree
+// Insert into a Binary Search Tree.
 
 /**
  * Definition for a binary tree node.

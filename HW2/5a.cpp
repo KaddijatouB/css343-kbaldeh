@@ -1,6 +1,6 @@
 //Implementation of the solution for leetcode problem 116.
-//Populating Next Right Pointers in Each Node
-//Level order traversal
+//Populating Next Right Pointers in Each Node.
+//Level order traversal.
 
 /**
  *  Definition for a Node.
