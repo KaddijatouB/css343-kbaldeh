@@ -1,7 +1,7 @@
 //
 // Created by Kaddijatou Baldeh on 7/20/22.
 // 79. Word Search
-// [DFS]
+// [search]
 
 //
 

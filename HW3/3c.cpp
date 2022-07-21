@@ -2,74 +2,66 @@
 // Created by Kaddijatou Baldeh on 7/20/22.
 //[BFS]
 //
-
 class Solution {
 public:
-    /*
-    In this problem first we get all the cells of island1 and pushed
-     them into a new queue and marking them visited.
-     Now from these cells we have to just find the first element in
-     the grid which is 1 using bfs and if we found then the answer would be the level of the bfs
-    */
     int shortestBridge(vector<vector<int>>& grid) {
-        // connect two island
-        int size = grid.size();
-        int ans = 0;
-        int dx[4] = {0,0,-1,1};
-        int dy[4] = {-1,1,0,0};
-        // for the all element of 1 island
-        queue<pair<int,int>>req;
+        // create pair queue
+        queue<pair<int,int>>list;
+        //keep track of explored grid node
+        bool visited = false;
+        //loop through the  grid
+        for (int i = 0; i < grid.size() && !visited; i++) {
+            for (int j = 0; j < grid[0].size() && !visited; j++) {
+                if (grid[i][j]){
+                    search(grid, j, i, list);
+                    visited = true;
+                }
+            }
+        }
         int count = 0;
-        vector<vector<bool>>visited(size, vector<bool>(size, false));
-        for(int i = 0; i < size; i++){
-            for(int j = 0; j < size; j++){
-                if(grid[i][j] == 1 && count == 0){
-                    // to get the one component of island
-                    queue<pair<int,int>>q;
-                    count++;
-                    q.push({i,j});
-                    visited[i][j] = true;
-                    while(!q.empty()){
-                        int x = q.front().first;
-                        int y = q.front().second;
-                        req.push({x,y});
-                        q.pop();
-                        for(int k = 0;k<4;k++){
-                            int nx = x+dx[k];
-                            int ny = y+dy[k];
-                            if(nx >=0 && nx < size && ny >= 0 && ny < size && grid[nx][ny] == 1 && visited[nx][ny] == false){
-                                visited[nx][ny] = true;
-                                q.push({nx,ny});
-                            }
-                        }
+        vector<int> paths{0, 1, 0, -1, 0};
+        while (!list.empty()) {
+            int size = list.size();
+            while (size--) {
+                // extract first and second element in list
+                int first = list.front().first;
+                int second = list.front().second;
+                //then remove from the list
+                list.pop();
+                //loop through to trace paths
+                for (int i = 0; i < 4; ++i) {
+                    int top = first + paths[i];
+                    int bottom = second + paths[i + 1];
+                    if (top < 0 || bottom < 0 || top >= grid[0].size() || bottom >= grid.size() || grid[bottom][top] == 2) {
+                        continue;
                     }
+                    if (grid[bottom][top] == 1){
+                        return count;
+                    }
+                    grid[bottom][top] = 2;
+                    //add to the end of the queue, after its current last element.
+                    list.emplace(top, bottom);
                 }
             }
+            ++count;
         }
-        // now the cells of the 1's island have been pushed to the queue
-        while(!req.empty()){
-            int t = req.size();
-            while(t--){
-                int x = req.front().first;
-                int y = req.front().second;
-                req.pop();
-                for(int i = 0;i<4;i++){
-                    int nx = x+dx[i];
-                    int ny = y+dy[i];
-                    if(nx >=0 && nx < size && ny >= 0 && ny < size && visited[nx][ny] == false){
-                        if(grid[nx][ny] == 1){
-                            return ans;
-                        }
-                        else{
-                            req.push({nx,ny});
-                            visited[nx][ny] = true;
-                        }
-                    }
-                }
-            }
-
-            ans++;
+        //otherwise, return negative 1
+        return -1;
+    }
+    //helper function
+    void search(vector<vector<int>>& A, int x, int y, queue<pair<int, int>>& q) {
+        // terminate search if negative values or values greater than size
+        if (x < 0 || y < 0 || x >= A[0].size() || y >= A.size() || A[y][x] != 1){
+            return;
         }
-        return ans;
+        A[y][x] = 2;
+        //add to the end of the queue, after its current last element.
+        q.emplace(x, y);
+        //recursively call search
+        search(A, x - 1, y, q);
+        search(A, x, y - 1, q);
+        search(A, x + 1, y, q);
+        search(A, x, y + 1, q);
     }
 };
+

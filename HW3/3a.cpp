@@ -45,7 +45,7 @@ public:
                 //check for the adjacent nodes
                 for (auto i: current->neighbors){
                     if(tracker.find(i) == tracker.end()) {
-                        // then create copy
+                        // then create copy of node
                         tracker[i] = new Node(i->val);
                         list.push(i);
                     }
