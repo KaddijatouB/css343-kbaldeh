@@ -1,14 +1,12 @@
-//
 // 200. Number of Islands
 // [BFS]
-//
 
 class Solution {
 public:
     int numIslands(vector < vector < char >> & grid) {
         //initialize count to zero
         int count = 0;
-        //loop through grid
+        //loop through rows and cols
         for (int i = 0; i < grid.size(); i++) {
             for (int j = 0; j < grid[0].size(); j++) {
                 //call BFS if grit equal 1
@@ -28,7 +26,7 @@ public:
         int size = grid.size();
         int sz = grid[0].size();
         //create queue of pairs
-        queue < pair < int, int >> list;
+        queue<pair<int, int>> list;
         list.push({i,j});
         //loop through list
         while (!list.empty()) {
@@ -46,7 +44,7 @@ public:
             }
         }
     }
-    // helper to check the cell path
+    // checker to check the cell path
     int path(int i, int j, int n, int m) {
         if (i < 0 || j < 0 || i >= n || j >= m){
             return 0;

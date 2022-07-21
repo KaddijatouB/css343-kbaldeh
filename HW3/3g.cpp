@@ -7,14 +7,13 @@ class Solution
 public:
     int flag = 0;
 
-    void helper( int i, list<int>* adj, stack<int>& Stack, vector<bool> &visited, vector<bool>& recStack)
+    void checker(int i, list<int>* adj, stack<int>& Stack, vector<bool> &visited, vector<bool>& recStack)
     {
         visited[i] = true;
         recStack[i] = true;
-        for(auto it = adj[i].begin(); it != adj[i].end(); it++)
-        {
+        for(auto it = adj[i].begin(); it != adj[i].end(); it++){
             if(!visited[*it])
-                helper(*it,adj,Stack,visited, recStack);
+                checker(*it, adj, Stack, visited, recStack);
 
 //          if the node is visited and is still a part of recursion stack then there is a cycle.
             else if(visited[*it] && recStack[*it])
@@ -58,7 +57,7 @@ public:
         for(int i = 0; i < numCourses; i++)
         {
             if(!visited[i])
-                helper(i,adj,Stack,visited,recStack);
+                checker(i, adj, Stack, visited, recStack);
             if(flag == 1)
                 return {};
         }

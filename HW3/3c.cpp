@@ -1,7 +1,6 @@
-//
 // Created by Kaddijatou Baldeh on 7/20/22.
 //[BFS]
-//
+
 class Solution {
 public:
     int shortestBridge(vector<vector<int>>& grid) {
@@ -9,7 +8,7 @@ public:
         queue<pair<int,int>>list;
         //keep track of explored grid node
         bool visited = false;
-        //loop through the  grid
+        //loop through the rows and cols
         for (int i = 0; i < grid.size() && !visited; i++) {
             for (int j = 0; j < grid[0].size() && !visited; j++) {
                 if (grid[i][j]){
@@ -48,7 +47,7 @@ public:
         //otherwise, return negative 1
         return -1;
     }
-    //helper function
+    //checker function
     void search(vector<vector<int>>& A, int x, int y, queue<pair<int, int>>& q) {
         // terminate search if negative values or values greater than size
         if (x < 0 || y < 0 || x >= A[0].size() || y >= A.size() || A[y][x] != 1){

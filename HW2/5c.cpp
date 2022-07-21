@@ -16,7 +16,7 @@ class Solution {
 public:
     //index that hold the post oder
     int postOderIdx;
-    //sub function to serve as a helper method
+    //sub function to serve as a checker method
     TreeNode* createBSTree(vector<int>& inorder,vector<int>& postorder,int start,int end){
         // if the staring index is greater than the end, then return null
         if(start > end ){

@@ -1,57 +1,53 @@
-//
 // 743. Network Delay Time
 // [Dijkstra]
 
+
 class Solution {
 public:
-    // Adjacency list, defined it as per the maximum number of nodes
-    // But can be defined with the input size as well
-    vector<pair<int, int>> adj[101];
-
-    void DFS(vector<int>& signalReceivedAt, int currNode, int currTime) {
-        // If the current time is greater than or equal to the fastest signal received
-        // Then no need to iterate over adjacent nodes
-        if (currTime >= signalReceivedAt[currNode]) {
-            return;
-        }
-
-        // Fastest signal time for currNode so far
-        signalReceivedAt[currNode] = currTime;
-
-        // Broadcast the signal to adjacent nodes
-        for (pair<int, int> edge : adj[currNode]) {
-            int travelTime = edge.first;
-            int neighborNode = edge.second;
-
-            // currTime + time : time when signal reaches neighborNode
-            DFS(signalReceivedAt, neighborNode, currTime + travelTime);
-        }
-    }
-
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
-        // Build the adjacency list
-        for (vector<int> time : times) {
+        // Create the adjacency list
+        vector<pair<int, int>> adj[101];
+        for (vector<int> time : times){
             int source = time[0];
-            int dest = time[1];
-            int travelTime = time[2];
+            int Location = time[1];
+            int transitT = time[2];
 
-            adj[source].push_back({travelTime, dest});
+            adj[source].push_back({transitT, Location});
         }
+        // create a time array for signal time
+        vector<int> signalTime(n + 1, INT_MAX);
 
-        // Sort the edges connecting to every node
+        // create priority queue pair and push source time
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+        pq.push({0, k});
+
+        // initialize the source time as 0
+        signalTime[k] = 0;
+        //loop through queue
+        while (!pq.empty()) {
+            int currTime = pq.top().first;
+            int curr = pq.top().second;
+            pq.pop();
+
+            if (currTime > signalTime[curr]) {
+                continue;
+            }
+            for (pair<int, int> edge : adj[curr]) {
+                int time = edge.first;
+                int adjNode = edge.second;
+                // Update time if less than time already present in queue
+                if (signalTime[adjNode] > currTime + time) {
+                    signalTime[adjNode] = currTime + time;
+                    //push the new time and the node in the priority queue
+                    pq.push({signalTime[adjNode], adjNode});
+                }
+            }
+        }
+        // calculate and return the minimum time the signal takes to reach all nodes
+        int min= INT_MIN;
         for (int i = 1; i <= n; i++) {
-            sort(adj[i].begin(), adj[i].end());
+            min = max(min, signalTime[i]);
         }
-
-        vector<int> signalReceivedAt(n + 1, INT_MAX);
-        DFS(signalReceivedAt, k, 0);
-
-        int answer = INT_MIN;
-        for (int node = 1; node <= n; node++) {
-            answer = max(answer, signalReceivedAt[node]);
-        }
-
-        // INT_MAX signifies atleat one node is unreachable
-        return answer == INT_MAX ? -1 : answer;
+        return min == INT_MAX ? -1 : min;
     }
 };
