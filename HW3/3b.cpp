@@ -28,7 +28,7 @@ public:
         //create queue of pairs
         queue<pair<int, int>> list;
         list.push({i,j});
-        //loop through list
+        // Loop through the queue until becomes empty
         while (!list.empty()) {
             auto first = list.front();
             list.pop();

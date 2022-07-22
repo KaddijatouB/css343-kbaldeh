@@ -21,7 +21,7 @@ public:
         if (root == nullptr){
             return true;
         }
-        // Compare the current node value so that it is within range of min and max values
+        // Compare the current node value so that it is within range of minimum and maximum values
         if (minValue != nullptr) {
             if (root->val <= minValue->val) {
                 return false;

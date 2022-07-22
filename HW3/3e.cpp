@@ -1,7 +1,6 @@
 // 743. Network Delay Time
 // [Dijkstra]
 
-
 class Solution {
 public:
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
@@ -11,7 +10,6 @@ public:
             int source = time[0];
             int Location = time[1];
             int transitT = time[2];
-
             adj[source].push_back({transitT, Location});
         }
         // create a time array for signal time
@@ -23,7 +21,7 @@ public:
 
         // initialize the source time as 0
         signalTime[k] = 0;
-        //loop through queue
+        // Loop through the queue until becomes empty
         while (!pq.empty()) {
             int currTime = pq.top().first;
             int curr = pq.top().second;

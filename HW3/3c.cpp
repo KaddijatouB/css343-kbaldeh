@@ -1,4 +1,4 @@
-// Created by Kaddijatou Baldeh on 7/20/22.
+// 934. Shortest Bridge
 //[BFS]
 
 class Solution {
@@ -19,6 +19,7 @@ public:
         }
         int count = 0;
         vector<int> paths{0, 1, 0, -1, 0};
+        // Loop through the queue until becomes empty
         while (!list.empty()) {
             int size = list.size();
             while (size--) {

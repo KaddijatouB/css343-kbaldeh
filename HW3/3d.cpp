@@ -8,6 +8,7 @@ public:
         for (int i = 0; i < board.size() ; i++) {
             for (int j = 0; j < board[0].size(); j++) {
                 if(board[i][j] == word[0]){
+                    //call helper function
                     if(check(board, word, i, j, 0))
                         return true;
                 }
@@ -16,17 +17,16 @@ public:
         //otherwise, return false
         return false;
     }
-    //checker function
+    //helper function to check
     bool check(vector<vector<char>>& board, string word, int x, int y, int index){
-        if(x < 0 || x >= board.size() || y < 0 || y >= board[0].size() || board[x][y] != word[index])
+        if(x < 0 || x >= board.size() || y < 0 || y >= board[0].size() || board[x][y] != word[index]){
             return false;
-
+        }
         if(index == word.size()-1){
             return true;
         }
-
         board[x][y] = '#';
-
+        //recursively check board
         bool ret1 = check(board, word, x + 1, y, index + 1);
         bool ret2 = check(board, word, x - 1, y, index + 1);
         bool ret3 = check(board, word, x, y + 1, index + 1);

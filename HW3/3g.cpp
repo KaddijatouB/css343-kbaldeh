@@ -1,76 +1,47 @@
-//
-// Created by Kaddijatou Baldeh on 7/20/22.
-//
+// 210. Course Schedule II
+//[Topological sort]
 
-class Solution
-{
+class Solution {
 public:
-    int flag = 0;
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
 
-    void checker(int i, list<int>* adj, stack<int>& Stack, vector<bool> &visited, vector<bool>& recStack)
-    {
-        visited[i] = true;
-        recStack[i] = true;
-        for(auto it = adj[i].begin(); it != adj[i].end(); it++){
-            if(!visited[*it])
-                checker(*it, adj, Stack, visited, recStack);
+        // Create the adjacency list representation of the graph
+        vector<vector<int>> listQueue(numCourses);
+        vector<int> InDegree(numCourses, 0);
 
-//          if the node is visited and is still a part of recursion stack then there is a cycle.
-            else if(visited[*it] && recStack[*it])
-            {
-                flag = 1;
-                return;
+        for(int i = 0;i < prerequisites.size(); i++){
+            listQueue[prerequisites[i][1]].push_back(prerequisites[i][0]);
+            InDegree[prerequisites[i][0]]++;
+        }
+        // Add all vertices with 0 in-InDegree to the queue
+        queue<int> pq;
+        for(int i = 0;i < numCourses;i++){
+            if(InDegree[i] == 0){
+                pq.push(i);
             }
         }
-        recStack[i] = false;
-        Stack.push(i);
-    }
-
-
-    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites)
-    {
-        int n = prerequisites.size();
-        vector<int> res;
-
-//      no prerequisites
-        if(n == 0)
-        {
-            for(int i = 0; i < numCourses; i++)
-                res.push_back(i);
-            return res;
+        int total = 0;
+        vector<int> topologicalSorted;
+        // Loop through the queue until becomes empty
+        while(!pq.empty()){
+            total++;
+            int x = pq.front();
+            pq.pop();
+            topologicalSorted.push_back(x);
+            // Reduce the in-InDegree of each neighbor by 1
+            for(auto it:listQueue[x]){
+                InDegree[it]--;
+                if(InDegree[it] == 0){
+                    pq.push(it);
+                }
+            }
         }
-
-        list<int>* adj = new list<int>[numCourses];
-        stack<int> Stack;
-        vector<bool>visited(n,false);
-        vector<bool> recStack(n,false);
-
-//      making the directed graph using adjacency list
-        for(int i = 0; i < n; i++)
-        {
-            int st = prerequisites[i][1];
-            int fi = prerequisites[i][0];
-            adj[st].push_back(fi);
+        // Check to see if ordering is possible  or not.
+        if(topologicalSorted.size() == numCourses){
+            return topologicalSorted;
         }
-
-//      doing topological sort if acyclic or if cycle found return {}
-        for(int i = 0; i < numCourses; i++)
-        {
-            if(!visited[i])
-                checker(i, adj, Stack, visited, recStack);
-            if(flag == 1)
-                return {};
+        else{
+            return {};
         }
-        while(!Stack.empty())
-        {
-            res.push_back(Stack.top());
-            Stack.pop();
-        }
-
-//      removing the dynamically alloted memory
-        delete[] adj;
-
-//      returning the answer;
-        return res;
     }
 };

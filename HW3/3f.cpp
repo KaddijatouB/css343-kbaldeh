@@ -1,81 +1,52 @@
-//
 // 295. Find Median from Data Stream
 // [Heap/priority queue]
-//
 
 class MedianFinder {
 public:
-    priority_queue<int> maxi;
-    priority_queue<int,vector<int>, greater<int>> mini;
-
-
+    priority_queue<int> maximum;
+    priority_queue<int, vector<int>, greater<int>> minimum;
+    // initializes the MedianFinder object.
     MedianFinder() {
-
+        maximum = priority_queue<int>();
+        minimum = priority_queue < int, vector < int >, greater < int >> ();
     }
-
+    //adds the integer num from the data stream
     void addNum(int num) {
-        //entering first element
-        if(maxi.empty()){
-            maxi.push(num);
-            return ;
+        // Add to maximum heap
+        if(maximum.empty() || maximum.top() > num){
+            maximum.push(num);
+        }else{
+            minimum.push(num);
         }
-        //entering second element
-        if(maxi.size()==1 && mini.empty()){
-            mini.push(num);
-            if( mini.top()<maxi.top())
-            {
-                int temp1 =mini.top();
-                int temp2 =maxi.top();
-                mini.pop();
-                maxi.pop();
-                mini.push(temp2);
-                maxi.push(temp1);
-
-            }
-            return;
+        // balance the queue and size
+        if(minimum.size() + 1 < maximum.size()){
+            minimum.push(maximum.top());
+            maximum.pop();
         }
-        // this was for the first two numbers
-        // allocate the first two numbers appropriately
-
-        //adding numbers appropriately to the two heaps
-        if(num<=maxi.top()){
-            maxi.push(num);
-        }
-        else if(num>maxi.top()){
-            mini.push(num);
-        }
-
-        // keep their size difference at max 1
-        if( mini.size()== maxi.size()+2){
-            maxi.push(mini.top());
-            mini.pop();
-        }
-        else if( maxi.size() == mini.size()+2){
-            mini.push(maxi.top());
-            maxi.pop();
+        if(minimum.size() > 1 + maximum.size()){
+            maximum.push(minimum.top());
+            minimum.pop();
         }
     }
-
+    // returns the median of all elements
     double findMedian() {
-
-
-        double ans=0.0;
-        //if only one element present
-        if(maxi.size()+mini.size() ==1)
-            return double(maxi.top());
-
-        if(maxi.size()==mini.size())// even
-            return (double)(maxi.top()+ mini.top())/(double)2;
-
-        else{
-            if(maxi.size()>mini.size())
-                return (double)(maxi.top());
-            else
-                return (double)(mini.top());
-
+        double results;
+        if(maximum.size() == minimum.size()){
+            results= (maximum.top() + minimum.top()) / 2.0;
         }
-        return ans;
+        else if(maximum.size() > minimum.size()){
+            results = maximum.top();
+        }else{
+            results = minimum.top();
+        }
+        return results;
+
     }
-
-
 };
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder* obj = new MedianFinder();
+ * obj->addNum(num);
+ * double param_2 = obj->findMedian();
+ */

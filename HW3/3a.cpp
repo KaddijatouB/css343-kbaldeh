@@ -35,7 +35,7 @@ public:
             queue<Node*> list;
             //Insert node to queue
             list.push(node);
-            //loop through till the list is empty
+            // Loop through the queue until becomes empty
             while (!list.empty()) {
                 // extract first element in list
                 Node* current = list.front();
